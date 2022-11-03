@@ -1,0 +1,13 @@
+{
+  "file_info": {
+    "version": 1,
+    "kind": "project_metadata"
+  },
+  "installed_on": "2022-11-01T20:54:08.407815971Z",
+  "updated_on": "0001-01-01T00:00:00Z",
+  "project_url": "https://github.com/jensuj/zxcvbn",
+  "catalog_entry": {
+    "project_name": "zxcvbn",
+    "description": ""
+  }
+}

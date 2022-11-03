@@ -716,7 +716,7 @@ end
 
 -- base functions
 
-function Track:keyboard(k,v)
+function Track:keyboard(k,v,c)
   if k=="TAB" then
     if v==1 and (params:get(self.id.."track_type")==TYPE_DRUM or params:get(self.id.."track_type")==TYPE_MELODIC) then
       if self.state==STATE_VTERM then
@@ -752,7 +752,7 @@ function Track:keyboard(k,v)
     end
     do return end
   end
-  self.states[self.state]:keyboard(k,v)
+  self.states[self.state]:keyboard(k,v,c)
 end
 
 function Track:enc(k,d)

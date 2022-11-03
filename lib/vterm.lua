@@ -72,6 +72,7 @@ function VTerm:cursor_insert(s)
     self:move_cursor(0,1)
   end
   self:update_text()
+  c = nil
 end
 
 function VTerm:cursor_delete()
@@ -186,6 +187,11 @@ function VTerm:paste()
   show_message("pasted")
 end
 
+function VTerm:ret()
+  self:cursor_insert("\n")
+end
+
+
 function VTerm:remove()
   local lines={}
   for i,v in ipairs(self.lines) do
@@ -263,7 +269,10 @@ function VTerm:move_cursor(row,col)
   end
 end
 
-function VTerm:keyboard(k,v)
+
+
+
+function VTerm:keyboard(k,v,c)
   local upper=false
   if k=="BACKSPACE" then
     if v>0 then
@@ -343,72 +352,22 @@ function VTerm:keyboard(k,v)
       show_message("saved",2)
       self:save()
     end
-  elseif v==1 then
-    local unknown=false
-    if k=="SPACE" then
-      k=" "
-    elseif k=="SEMICOLON" then
-      k=";"
-    elseif k=="SHIFT+SEMICOLON" then
-      k=":"
-    elseif k=="APOSTROPHE" then
-      k="'"
-    elseif k=="SHIFT+APOSTROPHE" then
-      k='"'
-    elseif k=="SLASH" then
-      k="/"
-    elseif k=="SHIFT+SLASH" then
-      k="?"
-    elseif k=="DOT" then
-      k="."
-    elseif k=="SHIFT+DOT" then
-      k=">"
-    elseif k=="ENTER" then
-      k="\n"
-    elseif k=="MINUS" then
-      k="-"
-    elseif k=="SHIFT+MINUS" then
-      k="_"
-    elseif k=="COMMA" then
-      k=","
-    elseif k=="SHIFT+COMMA" then
-      k="<"
-    elseif k=="EQUAL" then
-      k="="
-    elseif k=="SHIFT+EQUAL" then
-      k="+"
-    elseif k=="SHIFT+1" then
-      k="!"
-    elseif k=="SHIFT+2" then
-      k="@"
-    elseif k=="SHIFT+3" then
-      k="#"
-    elseif k=="SHIFT+4" then
-      k="$"
-    elseif k=="SHIFT+5" then
-      k="%"
-    elseif k=="SHIFT+6" then
-      k="^"
-    elseif k=="SHIFT+7" then
-      k="&"
-    elseif k=="SHIFT+8" then
-      k="*"
-    elseif k=="SHIFT+9" then
-      k="("
-    elseif k=="SHIFT+0" then
-      k=")"
-    elseif string.find(k,"SHIFT") and #k:sub(7)==1 then
-      k=k:sub(7)
-      upper=true
-    elseif #k>1 then
-      unknown=true
-      print("vterm: unknown character: "..k)
+  elseif k=="ENTER" then
+    if v==0 then
+      self:ret()
     end
-    if not unknown then
-      self:cursor_insert(upper and k or string.lower(k))
-    end
+
+    
+  elseif c then
+
+    self:cursor_insert(c)
+
+    
+  
   end
 end
+
+
 
 function VTerm:enc(k,d)
   if k==1 then   

@@ -332,8 +332,16 @@ function reset_clocks()
   clock_pulse=0
 end
 
+
+local new_Char = nil
+
+function keyboard.char(c)
+  new_char = c
+end
+
 function keyboard.code(k,v)
-  screens[screen_ind]:keyboard(k,v)
+  screens[screen_ind]:keyboard(k,v,new_char)
+  new_char = nil
 end
 
 function show_progress(val)

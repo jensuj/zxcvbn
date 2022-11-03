@@ -21,7 +21,7 @@ function Tracker:init()
   end
 end
 
-function Tracker:keyboard(k,v)
+function Tracker:keyboard(k,v,c)
   -- print(self.codes_keyboard[k])
   if string.find(k,"CTRL") then
     self.ctrl_on=v>0
@@ -106,7 +106,7 @@ function Tracker:keyboard(k,v)
     end
     do return end
   end
-  tracks[params:get("track")]:keyboard(k,v)
+  tracks[params:get("track")]:keyboard(k,v,c)
 end
 
 function Tracker:enc(k,d)
